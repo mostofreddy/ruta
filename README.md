@@ -36,8 +36,16 @@ Instalación
         "mostofreddy/ruta": "*",
     }
 
+Roadmap & issues
+----------------
+
+[Roadmap & issues](https://github.com/mostofreddy/ruta/issues/milestones)
+
+
 API
 ===
+
+[API](http://mostofreddy.github.io/ruta/api)
 
 Bootstrap
 ---------
