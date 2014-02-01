@@ -18,8 +18,8 @@
         "issues": "https://github.com/mostofreddy/ruta/issues"
     },
     "autoload": {
-        "psr-0": {
-            "mostofreddy": "src/"
+        "psr-4": {
+            "mostofreddy\\ruta\\": "src/"
         }
     },
     "require": {
