@@ -8,7 +8,7 @@ Simple sistema de ruteo para PHP.
 Versión
 -------
 
-- __1.0.0__
+- __1.0.1__
 
 Licencia
 -------
@@ -46,14 +46,14 @@ Changelog
 
 __1.0.1__
 
-    * Cambios en la configuración de composer
+* Cambios en la configuración de composer
 
 __1.0.0__
 
-    * Se elimina retro-compatibilidad
-    * Implementación de PSR-4
-    * Se cambia el namaspace *mostofreddy/ruta* a *resty/ruta*
-    * Se elimina features para crear subrutas
+* Se elimina retro-compatibilidad
+* Implementación de PSR-4
+* Se cambia el namaspace *mostofreddy/ruta* a *resty/ruta*
+* Se elimina features para crear subrutas
 
 API
 ===
