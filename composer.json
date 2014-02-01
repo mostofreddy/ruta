@@ -1,9 +1,9 @@
 {
     "name": "restty/ruta",
     "description": "Simple sistema de ruteo para PHP",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": ["router", "route", "routes", "routing"],
-    "homepage": "https://github.com/Restty/Ruta",
+    "homepage": "https://github.com/restty/ruta",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -16,7 +16,7 @@
     ],
     "support": {
         "email": "mostofreddy@gmail.com",
-        "issues": "https://github.com/Restty/Ruta/issues"
+        "issues": "https://github.com/restty/ruta/issues"
     },
     "autoload": {
         "psr-4": {

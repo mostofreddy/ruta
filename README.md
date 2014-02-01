@@ -25,7 +25,7 @@ Instalación
 ### Github
 
     cd /var/www
-    git clone git@github.com:Restty/Ruta.git
+    git clone git@github.com:restty/ruta.git
     cd ruta
     composer install
 
@@ -33,16 +33,20 @@ Instalación
 
     "require": {
         "php": ">=5.4.0",
-        "Restty/Ruta": "*",
+        "restty/ruta": "*",
     }
 
 Roadmap & issues
 ----------------
 
-[Roadmap & issues](https://github.com/Restty/Ruta/issues)
+[Roadmap & issues](https://github.com/restty/ruta/issues)
 
 Changelog
 ---------
+
+__1.0.1__
+
+    * Cambios en la configuración de composer
 
 __1.0.0__
 
