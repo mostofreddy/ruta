@@ -7,14 +7,15 @@
  * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
- * @category  Ruta
- * @package   Ruta
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Resty
+ * @subpackage Ruta
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
-namespace mostofreddy\ruta;
+namespace resty\ruta;
 /**
  * Route
  *
@@ -28,31 +29,18 @@ namespace mostofreddy\ruta;
 class Route
 {
     const ERR_CALLBACK_TYPE = 'Callback is not callable';
-    public $callback = null;
+    protected $callback = null;
     protected $pattern = null;
     protected $methods = null;
     protected $defaults = array();
     protected $params = array();
-    /**
-     * Setea si analiza subrutas o no
-     *
-     * @param bool $subruote Description.
-     *
-     * @access public
-     * @return mostofreddy\ruta\Route
-     */
-    public function subRoutes($subruote)
-    {
-        $this->subruote = (bool) $subruote;
-        return $this;
-    }
     /**
      * Setea los valores defaults de las variables opcionales de la uri
      *
      * @param array $defaults Description.
      *
      * @access public
-     * @return mostofreddy\ruta\Route
+     * @return self
      */
     public function defaults(array $defaults = array())
     {
@@ -61,7 +49,7 @@ class Route
     }
 
     /**
-     * getParams
+     * Devuelve todos los parametros definidos y enviados en la ruta actual
      *
      * @param array $params Description.
      *
@@ -84,13 +72,13 @@ class Route
         return $this->callback;
     }
     /**
-     * Setea un ruta GET
+     * Setea una ruta GET
      *
      * @param string   $pattern  pattern de la ruta
      * @param callable $callback función callback relacionada a la ruta
      *
      * @access public
-     * @return mostofreddy\ruta\Route
+     * @return self
      */
     public function get($pattern, $callback)
     {
@@ -99,13 +87,13 @@ class Route
     }
 
     /**
-     * Setea un ruta POST
+     * Setea una ruta POST
      *
      * @param string   $pattern  pattern de la ruta
      * @param callable $callback función callback relacionada a la ruta
      *
      * @access public
-     * @return mostofreddy\ruta\Route
+     * @return self
      */
     public function post($pattern, $callback)
     {
@@ -119,7 +107,7 @@ class Route
      * @param array $methods metodos http habilitados para el pattern
      *
      * @access public
-     * @return mostofreddy\ruta\Route
+     * @return self
      */
     public function method(array $methods)
     {
@@ -134,7 +122,7 @@ class Route
      * @param string $uri    uri
      *
      * @access public
-     * @return \mostofreddy\ruta\Route|false devuelve false si no machea el pattern
+     * @return self|false devuelve false si no machea el pattern
      */
     public function match($method, $uri)
     {
@@ -147,35 +135,12 @@ class Route
             return false;
         }
 
-        if ($this->subruote) {
-            return $this->matchSubRoutes($method, $uri);
-        }
-
         $this->params = array_merge(
             $this->defaults,
             $this->cleanMatches($matches)
         );
 
         return $this;
-    }
-
-    /**
-     * Analiza subrutas del pattern
-     *
-     * @param string $method methodo http del request
-     * @param string $uri    uri
-     *
-     * @access protected
-     * @return \mostofreddy\ruta\Route|false devuelve false si no machea el pattern
-     */
-    protected function matchSubRoutes($method, $uri)
-    {
-        $callback = $this->callback;
-        $r = $callback();
-        if ($r instanceof \mostofreddy\ruta\Router) {
-            return $r->match($method, $uri);
-        }
-        return false;
     }
     /**
      * Método interno para setear una ruta
@@ -184,12 +149,12 @@ class Route
      * @param callable $callback función callback relacionada a la ruta
      *
      * @access protected
-     * @return \mostofreddy\ruta\Route
+     * @return self
      */
     protected function add($pattern, $callback)
     {
         if ($callback!==null && !is_callable($callback)) {
-            throw new \Exception(static::ERR_CALLBACK_TYPE);
+            throw new \InvalidArgumentException(static::ERR_CALLBACK_TYPE);
         }
         $this->callback = $callback;
         $this->pattern = $pattern;
@@ -223,14 +188,14 @@ class Route
     protected function compile()
     {
         if ($this->isStatic()) {
-            return '~^'.$this->pattern.($this->subruote?'':'$').'~';
+            return '~^'.$this->pattern.'$'.'~';
         }
         $segments = $this->getSegments($this->pattern);
         $compiled = $this->pattern;
         foreach ($segments as $segment) {
             $compiled = \str_replace($segment['token'], $segment['regex'], $compiled);
         }
-        $compiled = "~^{$compiled}".($this->subruote?'':'$')."~";
+        $compiled = "~^{$compiled}".'$'."~";
         return $compiled;
     }
     /**

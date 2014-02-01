@@ -8,7 +8,7 @@ Simple sistema de ruteo para PHP.
 Versión
 -------
 
-- __v0.2.0__ desarrollo
+- __1.0.0__
 
 Licencia
 -------
@@ -41,11 +41,18 @@ Roadmap & issues
 
 [Roadmap & issues](https://github.com/mostofreddy/ruta/issues/milestones)
 
+Changelog
+---------
+
+__1.0.0__
+
+    * Se elimina retro-compatibilidad
+    * Implementación de PSR-4
+    * Se cambia el namaspace *mostofreddy/ruta* a *resty/ruta*
+    * Se elimina features para crear subrutas
 
 API
 ===
-
-[API](http://mostofreddy.github.io/ruta/api)
 
 Bootstrap
 ---------
@@ -56,12 +63,22 @@ El primero es necesario para cuando el site que se esta creando se encuentra en 
 
 El segundo es por un tema de rendimiento, por cada ruta seteada es necesaria una nueva instancia de Route, pero como en PHP es menos costoso clonar un objeto que instanciarlo se utilizará una cache.
 
-    $router = new \mostofreddy\ruta\Router();
-    $router->setSubDirectory('ruta')
-        ->cache(new \mostofreddy\ruta\Route());
+    $router = new \iwt\ruta\Router();
+    $router->setSubDirectory('ruta') //optional
+        ->cache(new \iwt\ruta\Route());
 
 Crear rutas
 -----------
+
+    // Closure como callback
+    $router->get(
+        '/',
+        function ($params) {
+            echo "root<br/>";
+            echo "params: ".json_encode($params);
+            echo "<br/>";
+        }
+    )->defaults(array("nombre" => "mostofreddy"));
 
     //método estático como callback
     $router->post(
@@ -75,21 +92,17 @@ Crear rutas
         array(new \Foo(), 'concrete')
     ));
 
-    //closure como callback
-    $router->get(
-        '/',
-        function () {
-            echo "root<br/>";
-        }
-    )
-
 Machear rutas
 -------------
 
     try {
         $uri = $_SERVER["REQUEST_URI"];
         $method = $_SERVER["REQUEST_METHOD"];
-        $route = $router->match($method, $uri);
+        echo $method." - ".$uri."<br/>";
+        $route = $router->match(
+            $method,
+            $uri
+        );
         if ($route !== false) {
             $callback = $route->getCallback();
             $callback($route->getParams());
@@ -143,6 +156,7 @@ Patterns para rutas
         }
     );
 
+
 ### Wildcard
 
     $router->get(
@@ -152,7 +166,6 @@ Patterns para rutas
         }
     );
 
-
 Valores por defecto
 -------------------
 
@@ -160,38 +173,3 @@ Valores por defecto
         '/search/:q?',
         array(new \Foo(), 'search')
     )->defaults(array("q" => "nada q buscar"));
-
-Subrutas
---------
-
-Subrutas es un feature muy interesante que permite encapsular un conjuto de rutas según un criterio. También sirve para crear distintos módulos para una aplicación.
-
-### Ejemplo creando un módulo usuarios
-
-    class User
-    {
-        public function routes()
-        {
-            $router = new \mostofreddy\ruta\Router();
-            $router->setSubDirectory('ruta/user')
-                ->cache(new \mostofreddy\ruta\Route());
-
-            $router->get('/get', array("\User", "get"));
-
-            $router->post('/add', array("\User", "add"));
-
-            return $router;
-        }
-        public static function get()
-        {
-            //....
-        }
-        public static function add()
-        {
-            //....
-        }
-    }
-
-    $router->get(
-        '/user/', array(new User(), 'routes'), true
-    );

@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "mostofreddy\\ruta\\": "src/"
+            "resty\\ruta\\": "src/"
         }
     },
     "require": {

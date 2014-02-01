@@ -7,16 +7,17 @@
  * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
- * @category  Ruta
- * @package   Ruta
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Resty
+ * @subpackage Ruta
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
-namespace mostofreddy\ruta;
+namespace resty\ruta;
 /**
- * Router
+ * Route
  *
  * @category  Ruta
  * @package   Ruta
@@ -32,16 +33,16 @@ class Router
     protected $subDirectory = '';
 
     /**
-     * Setea el objeto \mostofreddy\ruta\Route para creación de cada ruta.
+     * Setea el objeto \resty\ruta\Route para creación de cada ruta.
      * Se crea un cache para luego en cada invocación de los metodos get/post se clone este objeto y
      * no haya que instanciarlo constantemente si se definen muchas rutas
      *
-     * @param \mostofreddy\ruta\Route $route instancia de la clase \mostofreddy\ruta\Route
+     * @param \resty\ruta\Route $route instancia de la clase \resty\ruta\Route
      *
      * @access public
-     * @return \ruta\Router
+     * @return self
      */
-    public function cache(\mostofreddy\ruta\Route $route)
+    public function cache(\resty\ruta\Route $route)
     {
         $this->cacheRoute = $route;
         return $this;
@@ -52,7 +53,7 @@ class Router
      * @param string $subDirectory subdirectorio.
      *
      * @access public
-     * @return \mostofreddy\ruta\Router
+     * @return self
      */
     public function setSubDirectory($subDirectory)
     {
@@ -62,12 +63,12 @@ class Router
     /**
      * append
      *
-     * @param m\ruta\Route $route Description.
+     * @param \resty\ruta\Route $route Description.
      *
      * @access public
-     * @return \mostofreddy\ruta\Router
+     * @return self
      */
-    public function append(\mostofreddy\ruta\Route $route)
+    public function append(\resty\ruta\Route $route)
     {
         $this->routes[] = $route;
         return $route;
@@ -76,35 +77,31 @@ class Router
     /**
      * Setea una ruta para GET
      *
-     * @param string   $pattern        pattern
-     * @param Callable $callback       callback asociado a la ruta
-     * @param bool     $parseSubRoutes indica si debe analizar las subrutas o no. Default: false
+     * @param string   $pattern  pattern
+     * @param Callable $callback callback asociado a la ruta
      *
      * @access public
-     * @return \mostofreddy\ruta\Router
+     * @return self
      */
-    public function get($pattern, $callback, $parseSubRoutes=false)
+    public function get($pattern, $callback)
     {
         $route = clone $this->cacheRoute;
         $route->get($this->subDirectory.$pattern, $callback);
-        $route->subRoutes($parseSubRoutes);
         return $this->append($route);
     }
     /**
      * Setea una ruta para POST
      *
-     * @param string   $pattern        pattern
-     * @param Callable $callback       callback asociado a la ruta
-     * @param bool     $parseSubRoutes indica si debe analizar las subrutas o no. Default: false
+     * @param string   $pattern  pattern
+     * @param Callable $callback callback asociado a la ruta
      *
      * @access public
-     * @return \mostofreddy\ruta\Router
+     * @return self
      */
-    public function post($pattern, $callback, $parseSubRoutes=false)
+    public function post($pattern, $callback)
     {
         $route = clone $this->cacheRoute;
         $route->post($this->subDirectory.$pattern, $callback);
-        $route->subRoutes($parseSubRoutes);
         return $this->append($route);
     }
     /**
@@ -114,7 +111,7 @@ class Router
      * @param string $uri    uri
      *
      * @access public
-     * @return \mostofreddy\ruta\Route|false devuelve la instancia de la ruta o false si no machea con ninguna
+     * @return self|false devuelve la instancia de la ruta o false si no machea con ninguna
      */
     public function match($method, $uri)
     {

@@ -1,42 +1,24 @@
 <?php
 /**
- * Demo
+ * Ejemplo de uso del componente Ruta
  *
  * PHP version 5.4
  *
- * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
- * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
- *
- * @category  Demo
- * @package   Ruta
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Resty
+ * @subpackage Ruta/Example
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
+require_once "../vendor/autoload.php";
+require_once "StaticClass.php";
+require_once "ConcreteClass.php";
 
-$path = realpath(__DIR__."/../vendor/")."/autoload.php";
-require_once $path;
-
-$router = new \mostofreddy\ruta\Router();
+$router = new \resty\ruta\Router();
 $router->setSubDirectory('ruta')
-    ->cache(new \mostofreddy\ruta\Route());
-
-$router->get(
-    '/sub/',
-    array(new Sub(), 'subrutas'),
-    true
-);
-
-$router->get(
-    '/foo/statics/:search?',
-    array("Foo", 'statics')
-)->defaults(array("search" => "nada =("));
-
-$router->get(
-    '/foo/concrete/:search?',
-    array(new \Foo(), 'concrete')
-)->defaults(array("search" => "nada =("));
+    ->cache(new \resty\ruta\Route());
 
 $router->get(
     '/',
@@ -46,6 +28,24 @@ $router->get(
         echo "<br/>";
     }
 )->defaults(array("nombre" => "mostofreddy"));
+
+$router->get(
+    '/lambda',
+    function ($params) {
+        echo "Lambda callback<br/>";
+        echo "<br/>";
+    }
+);
+
+$router->get(
+    '/static',
+    array('StaticClass', 'callback')
+);
+
+$router->get(
+    '/concrete',
+    array(new ConcreteClass, 'callback')
+);
 
 try {
     $uri = $_SERVER["REQUEST_URI"];
@@ -62,105 +62,4 @@ try {
     echo "<br/>Done!";
 } catch (\Exception $e) {
     echo $e->getMessage();
-}
-
-/**
- * Demo
- *
- * PHP version 5.4
- *
- * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
- * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
- *
- * @category  Demo
- * @package   Ruta
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
- */
-class Sub
-{
-    /**
-     * subrutas
-     *
-     * @access public
-     *
-     * @return mixed Value.
-     */
-    public function subrutas()
-    {
-        $router = new \mostofreddy\ruta\Router();
-        $router->setSubDirectory('ruta/sub')
-            ->cache(new \mostofreddy\ruta\Route());
-
-        $router->get(
-            '/index',
-            array("Sub", "index")
-        );
-
-        return $router;
-    }
-
-    /**
-     * index
-     *
-     * @access public
-     * @static
-     *
-     * @return mixed Value.
-     */
-    public static function index()
-    {
-        echo "sub > index<br/>";
-    }
-}
-
-/**
- * Demo
- *
- * PHP version 5.4
- *
- * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
- * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
- *
- * @category  Demo
- * @package   Ruta
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
- */
-class Foo
-{
-    /**
-     * concrete
-     *
-     * @param mixed $params Description.
-     *
-     * @access public
-     *
-     * @return mixed Value.
-     */
-    public function concrete($params)
-    {
-        echo "concrete<br/>";
-        echo "params: ".json_encode($params);
-        echo "<br/>";
-    }
-    /**
-     * static
-     *
-     * @param mixed $params Description.
-     *
-     * @access public
-     *
-     * @return mixed Value.
-     */
-    static public function statics($params)
-    {
-        echo "static<br/>";
-        echo "params: ".json_encode($params);
-        echo "<br/>";
-    }
 }
