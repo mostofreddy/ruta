@@ -1,20 +1,16 @@
 <?php
 /**
- * bootstrap
+ * Test bootstrap
  *
  * PHP version 5.4
-  *
- * Copyright (c) 2012 mostofreddy <mostofreddy@gmail.com>
- * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
- * @category   Test
- * @package    Ruta
- * @subpackage Ruta\Cases
- * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link       http://www.mostofreddy.com.ar
+ * @category   IWT
+ * @package    IWT
+ * @subpackage Ruta/Tests
+ * @author     Federico Lozada Mosto <federico.mosto@intraway.com>
+ * @copyright  2014 Intraway Corp.
+ * @license    http://www.intraway.com  Intraway
+ * @link       http://www.intraway.com
  */
 $path = realpath(__DIR__."/../");
-require_once $path.'/src/ruta/Route.php';
-
+require_once $path.'/vendor/autoload.php';
