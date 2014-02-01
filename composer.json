@@ -1,21 +1,22 @@
 {
-    "name": "mostofreddy/ruta",
+    "name": "Restty/Ruta",
     "description": "Simple sistema de ruteo para PHP",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "keywords": ["router", "route", "routes", "routing"],
-    "homepage": "https://github.com/mostofreddy/ruta",
+    "homepage": "https://github.com/Restty/Ruta",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Federico Lozada Mosto",
             "email": "mostofreddy@gmail.com",
-            "homepage": "http://github.com/mostofreddy"
+            "homepage": "http://www.mostofreddy.com.ar",
+            "rol": "Lead"
         }
     ],
     "support": {
         "email": "mostofreddy@gmail.com",
-        "issues": "https://github.com/mostofreddy/ruta/issues"
+        "issues": "https://github.com/Restty/Ruta/issues"
     },
     "autoload": {
         "psr-4": {

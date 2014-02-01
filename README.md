@@ -25,7 +25,7 @@ Instalación
 ### Github
 
     cd /var/www
-    git clone git@github.com:mostofreddy/ruta.git
+    git clone git@github.com:Restty/Ruta.git
     cd ruta
     composer install
 
@@ -33,13 +33,13 @@ Instalación
 
     "require": {
         "php": ">=5.4.0",
-        "mostofreddy/ruta": "*",
+        "Restty/Ruta": "*",
     }
 
 Roadmap & issues
 ----------------
 
-[Roadmap & issues](https://github.com/mostofreddy/ruta/issues/milestones)
+[Roadmap & issues](https://github.com/Restty/Ruta/issues)
 
 Changelog
 ---------
@@ -63,9 +63,9 @@ El primero es necesario para cuando el site que se esta creando se encuentra en 
 
 El segundo es por un tema de rendimiento, por cada ruta seteada es necesaria una nueva instancia de Route, pero como en PHP es menos costoso clonar un objeto que instanciarlo se utilizará una cache.
 
-    $router = new \iwt\ruta\Router();
+    $router = new \resty\ruta\Router();
     $router->setSubDirectory('ruta') //optional
-        ->cache(new \iwt\ruta\Route());
+        ->cache(new \resty\ruta\Route());
 
 Crear rutas
 -----------
