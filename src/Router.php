@@ -8,23 +8,24 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category   Ruta
- * @package    Resty
+ * @package    Restty
  * @subpackage Ruta
  * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
  * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
  * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link       http://www.mostofreddy.com.ar
  */
-namespace resty\ruta;
+namespace restty\ruta;
 /**
  * Route
  *
- * @category  Ruta
- * @package   Ruta
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Restty
+ * @subpackage Ruta
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
 class Router
 {
@@ -33,16 +34,16 @@ class Router
     protected $subDirectory = '';
 
     /**
-     * Setea el objeto \resty\ruta\Route para creación de cada ruta.
+     * Setea el objeto \restty\ruta\Route para creación de cada ruta.
      * Se crea un cache para luego en cada invocación de los metodos get/post se clone este objeto y
      * no haya que instanciarlo constantemente si se definen muchas rutas
      *
-     * @param \resty\ruta\Route $route instancia de la clase \resty\ruta\Route
+     * @param \restty\ruta\Route $route instancia de la clase \restty\ruta\Route
      *
      * @access public
      * @return self
      */
-    public function cache(\resty\ruta\Route $route)
+    public function cache(\restty\ruta\Route $route)
     {
         $this->cacheRoute = $route;
         return $this;
@@ -63,12 +64,12 @@ class Router
     /**
      * append
      *
-     * @param \resty\ruta\Route $route Description.
+     * @param \restty\ruta\Route $route Description.
      *
      * @access public
      * @return self
      */
-    public function append(\resty\ruta\Route $route)
+    public function append(\restty\ruta\Route $route)
     {
         $this->routes[] = $route;
         return $route;

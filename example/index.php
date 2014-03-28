@@ -5,7 +5,7 @@
  * PHP version 5.4
  *
  * @category   Ruta
- * @package    Resty
+ * @package    Restty
  * @subpackage Ruta/Example
  * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
  * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
@@ -16,9 +16,9 @@ require_once "../vendor/autoload.php";
 require_once "StaticClass.php";
 require_once "ConcreteClass.php";
 
-$router = new \resty\ruta\Router();
+$router = new \restty\ruta\Router();
 $router->setSubDirectory('ruta')
-    ->cache(new \resty\ruta\Route());
+    ->cache(new \restty\ruta\Route());
 
 $router->get(
     '/',

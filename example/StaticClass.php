@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category   Ruta
- * @package    Resty
+ * @package    Restty
  * @subpackage Ruta/Example
  * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
  * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
@@ -18,12 +18,13 @@
 /**
  * StaticClass
  *
- * @category  Ruta
- * @package   Ruta/Example
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Restty
+ * @subpackage Ruta/Example
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
 class StaticClass
 {

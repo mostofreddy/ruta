@@ -8,23 +8,24 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category   Ruta
- * @package    Resty
+ * @package    Restty
  * @subpackage Ruta/Tests
  * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
  * @copyright  2014 Federico Lozada Mosto <mostofreddy@gmail.com>
  * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link       http://www.mostofreddy.com.ar
  */
-namespace resty\ruta\tests;
+namespace restty\ruta\tests;
 /**
  * RouteInternalsTest
  *
- * @category  Ruta
- * @package   Ruta/Tests
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2014 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Restty
+ * @subpackage Ruta/Tests
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2014 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
 class RouteInternalsTest extends \PHPUnit_Framework_TestCase
 {
@@ -66,12 +67,12 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
     */
     public function testIsStaticFalse($expected)
     {
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
 
-        $rMethod = new \ReflectionMethod('\resty\ruta\Route', 'isStatic');
+        $rMethod = new \ReflectionMethod('\restty\ruta\Route', 'isStatic');
         $rMethod->setAccessible(true);
 
-        $rAttr = new \ReflectionProperty('\resty\ruta\Route', 'pattern');
+        $rAttr = new \ReflectionProperty('\restty\ruta\Route', 'pattern');
         $rAttr->setAccessible(true);
         $rAttr->setValue($route, $expected);
 
@@ -87,12 +88,12 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
     */
     public function testIsStaticTrue($expected)
     {
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
 
-        $rMethod = new \ReflectionMethod('\resty\ruta\Route', 'isStatic');
+        $rMethod = new \ReflectionMethod('\restty\ruta\Route', 'isStatic');
         $rMethod->setAccessible(true);
 
-        $rAttr = new \ReflectionProperty('\resty\ruta\Route', 'pattern');
+        $rAttr = new \ReflectionProperty('\restty\ruta\Route', 'pattern');
         $rAttr->setAccessible(true);
         $rAttr->setValue($route, $expected);
 
@@ -115,10 +116,10 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
             'optional' => false
         );
 
-        $aux = new \ReflectionMethod('\resty\ruta\Route', 'parseSegment');
+        $aux = new \ReflectionMethod('\restty\ruta\Route', 'parseSegment');
         $aux->setAccessible(true);
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $data = $aux->invokeArgs($route, array($uri));
 
         $this->assertEquals($expected, $data);
@@ -140,10 +141,10 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
             'optional' => true
         );
 
-        $aux = new \ReflectionMethod('\resty\ruta\Route', 'parseSegment');
+        $aux = new \ReflectionMethod('\restty\ruta\Route', 'parseSegment');
         $aux->setAccessible(true);
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $data = $aux->invokeArgs($route, array($uri));
 
         $this->assertEquals($expected, $data);
@@ -165,10 +166,10 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
             'optional' => ""
         );
 
-        $aux = new \ReflectionMethod('\resty\ruta\Route', 'parseSegment');
+        $aux = new \ReflectionMethod('\restty\ruta\Route', 'parseSegment');
         $aux->setAccessible(true);
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $data = $aux->invokeArgs($route, array($uri));
         $this->assertEquals($expected, $data);
     }
@@ -197,10 +198,10 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
                 'optional' => false
             )
         );
-        $aux = new \ReflectionMethod('\resty\ruta\Route', 'getSegments');
+        $aux = new \ReflectionMethod('\restty\ruta\Route', 'getSegments');
         $aux->setAccessible(true);
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $data = $aux->invokeArgs($route, array($pattern));
         $this->assertEquals($expected, $data);
     }
@@ -233,13 +234,13 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
      */
     public function testCompile($pattern, $expected)
     {
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
 
-        $rAttr = new \ReflectionProperty('\resty\ruta\Route', 'pattern');
+        $rAttr = new \ReflectionProperty('\restty\ruta\Route', 'pattern');
         $rAttr->setAccessible(true);
         $rAttr->setValue($route, $pattern);
 
-        $aux = new \ReflectionMethod('\resty\ruta\Route', 'compile');
+        $aux = new \ReflectionMethod('\restty\ruta\Route', 'compile');
         $aux->setAccessible(true);
 
         $result = $aux->invoke($route);
@@ -256,7 +257,7 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
      */
     public function testAssert()
     {
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $uri = "/user/edit/5";
         $pattern = '/user/edit/:id';
         $callback = function () {
@@ -269,7 +270,7 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
 
         $route->get($pattern, $callback);
 
-        $aux = new \ReflectionMethod('\resty\ruta\Route', 'assert');
+        $aux = new \ReflectionMethod('\restty\ruta\Route', 'assert');
         $aux->setAccessible(true);
 
         $result = $aux->invokeArgs($route, array($uri));
@@ -310,12 +311,12 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
         $callback = function () {
         };
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $route->get($pattern, $callback);
         $result = $route->match($method, $uri);
         if ($validate) {
             //si es true => tengo que validar que la ruta es macheo y por eso me devuelve un objeto
-            $this->assertInstanceOf('\resty\ruta\Route', $result);
+            $this->assertInstanceOf('\restty\ruta\Route', $result);
         } else {
             //si es false => tengo que validar que la ruta NO machea y devuelve false
             $this->assertFalse($result);
@@ -341,7 +342,7 @@ class RouteInternalsTest extends \PHPUnit_Framework_TestCase
             'editby' => 'mosto'
         );
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $route->get($pattern, $callback)
             ->defaults(array("editby"=>'mosto'));
         $result = $route->match($method, $uri);

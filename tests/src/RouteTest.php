@@ -8,23 +8,24 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category   Ruta
- * @package    Resty
+ * @package    Restty
  * @subpackage Ruta/Tests
  * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
  * @copyright  2014 Federico Lozada Mosto <mostofreddy@gmail.com>
  * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link       http://www.mostofreddy.com.ar
  */
-namespace resty\ruta\tests;
+namespace restty\ruta\tests;
 /**
  * RouteTest
  *
- * @category  Ruta
- * @package   Ruta/Tests
- * @author    Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright 2014 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link      http://www.mostofreddy.com.ar
+ * @category   Ruta
+ * @package    Restty
+ * @subpackage Ruta/Tests
+ * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @copyright  2014 Federico Lozada Mosto <mostofreddy@gmail.com>
+ * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link       http://www.mostofreddy.com.ar
  */
 class RouteTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +38,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
     public function testDefaults()
     {
         $expected = ['id' => 5];
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $route->defaults($expected);
 
         $this->assertAttributeEquals(
@@ -56,10 +57,10 @@ class RouteTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethod()
     {
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $expected = ['GET'];
 
-        $ref = new \ReflectionMethod('\resty\ruta\Route', 'method');
+        $ref = new \ReflectionMethod('\restty\ruta\Route', 'method');
         $ref->setAccessible(true);
 
         $ref->invokeArgs($route, array($expected));
@@ -81,9 +82,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $expected_pattern = '/home/';
         $expected_callback = function () {
         };
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
 
-        $ref = new \ReflectionMethod('\resty\ruta\Route', 'add');
+        $ref = new \ReflectionMethod('\restty\ruta\Route', 'add');
         $ref->setAccessible(true);
 
         $ref->invokeArgs($route, array($expected_pattern, $expected_callback));
@@ -112,9 +113,9 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $expected_pattern = '/home/';
         $expected_callback = "Callback invalido";
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
 
-        $ref = new \ReflectionMethod('\resty\ruta\Route', 'add');
+        $ref = new \ReflectionMethod('\restty\ruta\Route', 'add');
         $ref->setAccessible(true);
 
         $ref->invokeArgs($route, array($expected_pattern, $expected_callback));
@@ -146,7 +147,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $expected_callback = function () {
         };
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $route->get($expected_pattern, $expected_callback);
 
         $this->assertAttributeEquals(
@@ -181,7 +182,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
         $expected_callback = function () {
         };
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $route->post($expected_pattern, $expected_callback);
 
         $this->assertAttributeEquals(
@@ -216,7 +217,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase
             return $expected;
         };
 
-        $route = new \resty\ruta\Route();
+        $route = new \restty\ruta\Route();
         $route->post($pattern, $callback);
 
         $c = $route->getCallback();
