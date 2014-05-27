@@ -4,28 +4,28 @@
  *
  * PHP version 5.4
  *
- * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
+ * Copyright (c) 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
- * @category   Ruta
- * @package    Restty
- * @subpackage Ruta
- * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link       http://www.mostofreddy.com.ar
+ * @category  Ruta
+ * @package   Ruta
+ * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @copyright 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link      http://www.mostofreddy.com.ar
  */
-namespace restty\ruta;
+
+namespace ruta;
+
 /**
  * Route
  *
- * @category   Ruta
- * @package    Restty
- * @subpackage Ruta
- * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link       http://www.mostofreddy.com.ar
+ * @category  Ruta
+ * @package   Ruta
+ * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @copyright 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link      http://www.mostofreddy.com.ar
  */
 class Route
 {
@@ -35,10 +35,31 @@ class Route
     protected $methods = null;
     protected $defaults = array();
     protected $params = array();
+    protected $subdirectory = '';
     /**
-     * Setea los valores defaults de las variables opcionales de la uri
+     * Set subdirectory 
+     * 
+     * @param string $sub subdirectory
+     * 
+     * @return self
+     */
+    public function subdirectory($sub)
+    {
+        $this->subdirectory = '/'.trim($sub, '/');
+        return $this;
+    }
+    /**
+     * Setea los valores defaults de las variables de la uri
      *
-     * @param array $defaults Description.
+     * Ejemplo:
+     * $r = new \ruta\Route();
+     * $r->get('/user/\d+:id?', array(new ExampleObject, "callback")
+     *     ->defaults(array('id' => 10))
+     *
+     * http://localhost/user => user = 10
+     * htpp://localhost/user/5 => user = 5
+     *
+     * @param array $defaults array con los valores
      *
      * @access public
      * @return self
@@ -48,20 +69,18 @@ class Route
         $this->defaults = $defaults;
         return $this;
     }
-
     /**
      * Devuelve todos los parametros definidos y enviados en la ruta actual
      *
-     * @param array $params Description.
+     * @param array $params devuelve las variables de la ruta
      *
      * @access public
      * @return array
      */
-    public function getParams(array $params=array())
+    public function getParams(array $params = array())
     {
         return $params + $this->params;
     }
-
     /**
      * Devuelve la función callback de la ruta
      *
@@ -101,7 +120,25 @@ class Route
         return $this->add($pattern, $callback)
             ->method(array('POST'));
     }
-
+    /**
+     * Método interno para setear una ruta
+     *
+     * @param string   $pattern  pattern de la ruta
+     * @param callable $callback función callback relacionada a la ruta
+     *
+     * @access protected
+     * @return self
+     */
+    protected function add($pattern, $callback)
+    {
+        if ($callback!==null && !is_callable($callback)) {
+            throw new \InvalidArgumentException(static::ERR_CALLBACK_TYPE);
+        }
+        $this->callback = $callback;
+        // $this->pattern = $this->subdirectory.$pattern;
+        $this->pattern = $this->subdirectory.'/'.trim($pattern, '/');
+        return $this;
+    }
     /**
      * Setea los methods http habilitados para la ruta
      *
@@ -123,7 +160,7 @@ class Route
      * @param string $uri    uri
      *
      * @access public
-     * @return self|false devuelve false si no machea el pattern
+     * @return bool
      */
     public function match($method, $uri)
     {
@@ -141,26 +178,9 @@ class Route
             $this->cleanMatches($matches)
         );
 
-        return $this;
+        return true;
     }
-    /**
-     * Método interno para setear una ruta
-     *
-     * @param string   $pattern  pattern de la ruta
-     * @param callable $callback función callback relacionada a la ruta
-     *
-     * @access protected
-     * @return self
-     */
-    protected function add($pattern, $callback)
-    {
-        if ($callback!==null && !is_callable($callback)) {
-            throw new \InvalidArgumentException(static::ERR_CALLBACK_TYPE);
-        }
-        $this->callback = $callback;
-        $this->pattern = $pattern;
-        return $this;
-    }
+    
     /**
      * Devuelve todas las variables que machee
      *
@@ -177,7 +197,7 @@ class Route
     }
 
     /**************************************************
-     * Compilacion del pattern
+     * Pattern compilation
      *************************************************/
 
     /**
@@ -233,7 +253,7 @@ class Route
      *
      * @param string $segment The segment
      *
-     * @see    https://github.com/Bistro/Router/blob/master/lib/Bistro/Router/Route.php
+     * @see https://github.com/Bistro/Router/blob/master/lib/Bistro/Router/Route.php
      * @return array ['segment' => (string), name' => (string), 'regex' => (string), 'optional' => (boolean)]
      */
     protected function parseSegment($segment)

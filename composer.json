@@ -1,5 +1,5 @@
 {
-    "name": "restty/ruta",
+    "name": "rocketcode/ruta",
     "description": "Simple sistema de ruteo para PHP",
     "version": "1.0.1",
     "keywords": ["router", "route", "routes", "routing"],
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "restty\\ruta\\": "src/"
+            "ruta\\": "src/"
         }
     },
     "require": {

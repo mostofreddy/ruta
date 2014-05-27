@@ -8,7 +8,7 @@ Simple sistema de ruteo para PHP.
 Versión
 -------
 
-- __1.0.1__
+- __1.1.0__
 
 Licencia
 -------
@@ -43,6 +43,11 @@ Roadmap & issues
 
 Changelog
 ---------
+
+__1.1.0__
+
+* Change namaspace *mostofreddy/ruta* to *rocketcode/ruta*
+* Add cache
 
 __1.0.1__
 

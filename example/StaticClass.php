@@ -4,27 +4,25 @@
  *
  * PHP version 5.4
  *
- * Copyright (c) 2013 mostofreddy <mostofreddy@gmail.com>
+ * Copyright (c) 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
- * @category   Ruta
- * @package    Restty
- * @subpackage Ruta/Example
- * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link       http://www.mostofreddy.com.ar
+ * @category  Ruta
+ * @package   Ruta\Example
+ * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @copyright 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link      http://www.mostofreddy.com.ar
  */
 /**
  * StaticClass
  *
- * @category   Ruta
- * @package    Restty
- * @subpackage Ruta/Example
- * @author     Federico Lozada Mosto <mostofreddy@gmail.com>
- * @copyright  2013 Federico Lozada Mosto <mostofreddy@gmail.com>
- * @license    MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @link       http://www.mostofreddy.com.ar
+ * @category  Ruta
+ * @package   Ruta\Example
+ * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @copyright 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link      http://www.mostofreddy.com.ar
  */
 class StaticClass
 {
@@ -35,8 +33,9 @@ class StaticClass
      *
      * @return void
      */
-    static public function callback($params)
+    static public function callback($params=array())
     {
+        var_dump($params);
         echo "Static Class Callback";
         echo "<br/>";
     }
