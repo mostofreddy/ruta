@@ -1,0 +1,19 @@
+language: php
+
+php:
+    # using major version aliases
+    - 5.3
+    - 5.4
+    - 5.5
+
+# install phpcodesniffer
+# run composer
+before_script:
+    - pyrus install pear/PHP_CodeSniffer
+    - phpenv rehash
+    - phpcs --config-set default_standard PEAR
+    - composer install
+
+# run phpcodesniffer
+script:
+    - phpcs --standard=build/travis-ci-phpcs.xml --extensions=php --ignore=vendor .

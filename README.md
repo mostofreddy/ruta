@@ -51,6 +51,7 @@ __1.1.0__
 * Change namaspace to *\ruta*
 * Add cache-system
 * Add examples
+* Travis-CI integration
 
 __1.0.1__
 
