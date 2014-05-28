@@ -1,31 +1,33 @@
 Ruta
 ====
 
-Simple sistema de ruteo para PHP.
+Easy router package for any project
 
-(inspirado y basado en [bistro/router](https://github.com/bistro/router))
-
-Versión
+Version
 -------
 
-- __1.1.0__
+__1.1.0__
 
-Licencia
+Features
+--------
+
+
+License
 -------
 
-[MIT License](http://www.opensource.org/licenses/mit-license.php)
+This project is released under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
 Instalación
 -----------
 
-### Requerimientos
+### Requirements
 
 - PHP 5.4.*
 
 ### Github
 
     cd /var/www
-    git clone git@github.com:restty/ruta.git
+    git clone https://github.com/rocket-code/ruta.git
     cd ruta
     composer install
 
@@ -33,25 +35,26 @@ Instalación
 
     "require": {
         "php": ">=5.4.0",
-        "restty/ruta": "*",
+        "rocketcode/ruta": "*",
     }
 
 Roadmap & issues
 ----------------
 
-[Roadmap & issues](https://github.com/restty/ruta/issues)
+[Roadmap & issues](https://github.com/rocket-code/ruta/issues)
 
 Changelog
 ---------
 
 __1.1.0__
 
-* Change namaspace *mostofreddy/ruta* to *rocketcode/ruta*
-* Add cache
+* Change namaspace to *\ruta*
+* Add cache-system
+* Add examples
 
 __1.0.1__
 
-* Cambios en la configuración de composer
+* Change composer configuration
 
 __1.0.0__
 
@@ -60,71 +63,67 @@ __1.0.0__
 * Se cambia el namaspace *mostofreddy/ruta* a *resty/ruta*
 * Se elimina features para crear subrutas
 
-API
-===
+Examples
+========
+
+[View examples](https://github.com/rocket-code/ruta/tree/master/example)
+
+Docs
+====
 
 Bootstrap
 ---------
 
-Al instanciar la clase Router se debe configurar el subdirectorio y el cache del objeto Route.
+Start
 
-El primero es necesario para cuando el site que se esta creando se encuentra en un subdirectorio (ej: http://misitio.com/miproyecto).
+    $routeCollection = new \ruta\RouteCollection();
 
-El segundo es por un tema de rendimiento, por cada ruta seteada es necesaria una nueva instancia de Route, pero como en PHP es menos costoso clonar un objeto que instanciarlo se utilizará una cache.
 
-    $router = new \resty\ruta\Router();
-    $router->setSubDirectory('ruta') //optional
-        ->cache(new \resty\ruta\Route());
+Add base path
 
-Crear rutas
------------
+    \ruta\RouteBuilder::setSubdirectory('/fede/rocket/ruta/example/');
 
-    // Closure como callback
-    $router->get(
-        '/',
-        function ($params) {
-            echo "root<br/>";
-            echo "params: ".json_encode($params);
-            echo "<br/>";
-        }
-    )->defaults(array("nombre" => "mostofreddy"));
+Creating Routes
+---------------
 
-    //método estático como callback
-    $router->post(
-        '/statics',
-        array("Foo", 'statics')
-    )
+    $routeCollection->append(
+        \ruta\RouteBuilder::create()
+            ->get('/', array("StaticClass", "callback"))
+    )->append(
+        \ruta\RouteBuilder::create()
+            ->get('/work/\d+:id?', array(new ConcreteClass, "callback"))
+            ->defaults(array('id' => 10))
+    )->append(
+        \ruta\RouteBuilder::create()
+            ->get(
+                '/users', function () {
+                    echo "users!";
+                }
+            )
+    );
 
-    //método concreto como callback
-    $router->get(
-        '/concrete',
-        array(new \Foo(), 'concrete')
-    ));
-
-Machear rutas
--------------
+Checking For Matches
+--------------------
 
     try {
         $uri = $_SERVER["REQUEST_URI"];
         $method = $_SERVER["REQUEST_METHOD"];
-        echo $method." - ".$uri."<br/>";
-        $route = $router->match(
+        $route = $routeCollection->match(
             $method,
             $uri
         );
-        if ($route !== false) {
-            $callback = $route->getCallback();
-            $callback($route->getParams());
-        }
-        echo "<br/>Done!";
+        $callback = $route->getCallback();
+        $callback($route->getParams());
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
 
-Patterns para rutas
--------------------
 
-### parametros
+
+Patterns
+--------
+
+### params
 
     $router->get(
         '/post/:id',
@@ -132,13 +131,6 @@ Patterns para rutas
             echo "id: $id<br/>";
         }
     );
-    ....
-    $route = $router->match($method, $uri);
-    if ($route !== false) {
-        $callback = $route->getCallback();
-        $params = $route->getParams();
-        $callback($params['id']);
-    }
 
     $router->get(
         '/:controller/:action/:id',
@@ -149,17 +141,11 @@ Patterns para rutas
             echo "id: $id<br/>";
         }
     );
-    ....
-    $route = $router->match($method, $uri);
-    if ($route !== false) {
-        $callback = $route->getCallback();
-        $callback($route->getParams());
-    }
 
 ### Constraints
 
     $router->get(
-        '/user|post:controller/get/\d:id',
+        '/user|post:controller/get/\d+:id',
         function ($params) {
             .....
         }
@@ -175,10 +161,10 @@ Patterns para rutas
         }
     );
 
-Valores por defecto
--------------------
+Defaults
+--------
 
     $router->get(
         '/search/:q?',
         array(new \Foo(), 'search')
-    )->defaults(array("q" => "nada q buscar"));
+    )->defaults(array("q" => "empty search"));
