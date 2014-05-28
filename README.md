@@ -3,6 +3,8 @@ Ruta
 
 Easy router package for any project
 
+[![Build Status](https://travis-ci.org/rocket-code/ruta.svg?branch=master)](https://travis-ci.org/rocket-code/ruta)
+
 Version
 -------
 
