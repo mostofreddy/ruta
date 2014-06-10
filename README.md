@@ -54,7 +54,6 @@ __1.1.0__
 * Add cache-system
 * Add examples
 * Travis-CI integration
-* 
 
 __1.0.1__
 
