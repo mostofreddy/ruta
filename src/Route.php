@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category  Ruta
- * @package   Ruta
+ * @package   Restty\Ruta
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
 
-namespace ruta;
+namespace restty\ruta;
 
 /**
  * Route
  *
  * @category  Ruta
- * @package   Ruta
+ * @package   Restty\Ruta
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2013 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -192,6 +192,7 @@ class Route
     protected function assert($uri)
     {
         $matches = array();
+        var_dump($this->compile(), $uri);
         \preg_match($this->compile(), $uri, $matches);
         return $matches;
     }

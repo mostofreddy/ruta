@@ -1,6 +1,6 @@
 # Activar RewriteEngine
 RewriteEngine on
-RewriteBase /fede/rocket/ruta/example
+RewriteBase /ruta
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
 

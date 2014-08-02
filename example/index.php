@@ -17,20 +17,20 @@ require_once 'StaticClass.php';
 
 ini_set('error_reporting', true);
 
-$routeCollection = new \ruta\RouteCollection();
+$routeCollection = new \restty\ruta\RouteCollection();
 
-\ruta\RouteBuilder::setSubdirectory('/fede/rocket/ruta/example/');
+\restty\ruta\RouteBuilder::setSubdirectory('ruta');
 
 //set routes
 $routeCollection->append(
-    \ruta\RouteBuilder::create()
+    \restty\ruta\RouteBuilder::create()
         ->get('/', array("StaticClass", "callback"))
 )->append(
-    \ruta\RouteBuilder::create()
+    \restty\ruta\RouteBuilder::create()
         ->get('/work/\d+:id?', array(new ConcreteClass, "callback"))
         ->defaults(array('id' => 10))
 )->append(
-    \ruta\RouteBuilder::create()
+    \restty\ruta\RouteBuilder::create()
         ->get(
             '/users', function () {
                 echo "users!";

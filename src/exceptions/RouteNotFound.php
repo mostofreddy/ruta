@@ -15,7 +15,7 @@
  * @link      http://www.mostofreddy.com.ar
  */
 
-namespace ruta\exceptions;
+namespace restty\ruta\exceptions;
 
 /**
  * RouteNotFound

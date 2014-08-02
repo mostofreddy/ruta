@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category  Ruta
- * @package   Ruta
+ * @package   Restty\Ruta
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2014 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
 
-namespace ruta;
+namespace restty\ruta;
 
 /**
  * RouteCollectionCache
  *
  * @category  Ruta
- * @package   Ruta
+ * @package   Restty\Ruta
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2014 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class RouteCollectionCache extends \ruta\RouteCollection
+class RouteCollectionCache extends restty\ruta\RouteCollection
 {
 
     const ERR_CACHE_NO_EXISTS = 'Cache not exists';
@@ -106,13 +106,13 @@ class RouteCollectionCache extends \ruta\RouteCollection
     protected function loadValidation()
     {
         if (false === $this->enabled) {
-            throw new \ruta\exceptions\CacheNoLoaded(static::ERR_CACHE_NO_ENABLED);
+            throw new \restty\ruta\exceptions\CacheNoLoaded(static::ERR_CACHE_NO_ENABLED);
         }
         
         $this->isValidDirPath();
 
         if (false === file_exists($this->getFullPathCache())) {
-            throw new \ruta\exceptions\CacheNoLoaded(static::ERR_CACHE_NO_EXISTS);
+            throw new \restty\ruta\exceptions\CacheNoLoaded(static::ERR_CACHE_NO_EXISTS);
         }
         return true;
     }
@@ -142,7 +142,7 @@ class RouteCollectionCache extends \ruta\RouteCollection
         try {
             file_put_contents($this->getFullPathCache(), $this->dataEncode($this->routes));
         } catch (\Exception $e) {
-            throw new \ruta\exceptions\CacheNoSaved(static::ERR_CACHE_NO_SAVE);
+            throw new \restty\ruta\exceptions\CacheNoSaved(static::ERR_CACHE_NO_SAVE);
         }
         return $this;
     }
