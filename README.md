@@ -3,12 +3,12 @@ Ruta
 
 Easy router package for any project
 
-[![Build Status](https://travis-ci.org/rocket-code/ruta.svg?branch=master)](https://travis-ci.org/rocket-code/ruta)
+[![Build Status](https://travis-ci.org/mostofreddy/ruta.svg?branch=master)](https://travis-ci.org/mostofreddy/ruta)
 
 Version
 -------
 
-__1.1.0__
+__2.0.0-alpha__
 
 Features
 --------
@@ -29,7 +29,7 @@ Instalación
 ### Github
 
     cd /var/www
-    git clone https://github.com/rocket-code/ruta.git
+    git clone https://github.com/mostofreddy/ruta.git
     cd ruta
     composer install
 
@@ -43,7 +43,7 @@ Instalación
 Roadmap & issues
 ----------------
 
-[Roadmap & issues](https://github.com/rocket-code/ruta/issues)
+[Roadmap & issues](https://github.com/mostofreddy/ruta/issues)
 
 Changelog
 ---------
@@ -69,105 +69,5 @@ __1.0.0__
 Examples
 ========
 
-[View examples](https://github.com/rocket-code/ruta/tree/master/example)
+[View examples](https://github.com/mostofreddy/ruta/tree/master/example)
 
-Docs
-====
-
-Bootstrap
----------
-
-Start
-
-    $routeCollection = new \ruta\RouteCollection();
-
-
-Add base path
-
-    \ruta\RouteBuilder::setSubdirectory('/fede/rocket/ruta/example/');
-
-Creating Routes
----------------
-
-    $routeCollection->append(
-        \ruta\RouteBuilder::create()
-            ->get('/', array("StaticClass", "callback"))
-    )->append(
-        \ruta\RouteBuilder::create()
-            ->get('/work/\d+:id?', array(new ConcreteClass, "callback"))
-            ->defaults(array('id' => 10))
-    )->append(
-        \ruta\RouteBuilder::create()
-            ->get(
-                '/users', function () {
-                    echo "users!";
-                }
-            )
-    );
-
-Checking For Matches
---------------------
-
-    try {
-        $uri = $_SERVER["REQUEST_URI"];
-        $method = $_SERVER["REQUEST_METHOD"];
-        $route = $routeCollection->match(
-            $method,
-            $uri
-        );
-        $callback = $route->getCallback();
-        $callback($route->getParams());
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    }
-
-
-
-Patterns
---------
-
-### params
-
-    $router->get(
-        '/post/:id',
-        function ($id) {
-            echo "id: $id<br/>";
-        }
-    );
-
-    $router->get(
-        '/:controller/:action/:id',
-        function ($params) {
-            extract($params)
-            echo "controller: $controller<br/>";
-            echo "action: $action<br/>";
-            echo "id: $id<br/>";
-        }
-    );
-
-### Constraints
-
-    $router->get(
-        '/user|post:controller/get/\d+:id',
-        function ($params) {
-            .....
-        }
-    );
-
-
-### Wildcard
-
-    $router->get(
-        '/:controller/.*:action/\d:id',
-        function ($params) {
-            .....
-        }
-    );
-
-Defaults
---------
-
-    $router->get(
-        '/search/:q?',
-        array(new \Foo(), 'search')
-    )->defaults(array("q" => "empty search"));

@@ -17,39 +17,8 @@ require_once 'StaticClass.php';
 
 ini_set('error_reporting', true);
 
-$routeCollection = new \restty\ruta\RouteCollection();
-
-\restty\ruta\RouteBuilder::setSubdirectory('ruta');
-
-//set routes
-$routeCollection->append(
-    \restty\ruta\RouteBuilder::create()
-        ->get('/', array("StaticClass", "callback"))
-)->append(
-    \restty\ruta\RouteBuilder::create()
-        ->get('/work/\d+:id?', array(new ConcreteClass, "callback"))
-        ->defaults(array('id' => 10))
-)->append(
-    \restty\ruta\RouteBuilder::create()
-        ->get(
-            '/users', function () {
-                echo "users!";
-            }
-        )
-);
-
-try {
-    $uri = $_SERVER["REQUEST_URI"];
-    $method = $_SERVER["REQUEST_METHOD"];
-    $route = $routeCollection->match(
-        $method,
-        $uri
-    );
-    $callback = $route->getCallback();
-    $callback($route->getParams());
-} catch (\Exception $e) {
-    echo $e->getMessage();
-}
+$routeCollection = new \mostofreddy\ruta\RouteCollection();
+$routeCollection->subdirectory('ruta');
 
 
-echo "<br/>Done!";
+var_dump(\mostofreddy\ruta\RouteBuilder::$subdirectory);

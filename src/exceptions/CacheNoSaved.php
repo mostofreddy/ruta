@@ -15,7 +15,7 @@
  * @link      http://www.mostofreddy.com.ar
  */
 
-namespace restty\ruta\exceptions;
+namespace mostofreddy\ruta\exceptions;
 
 /**
  * CacheNoSaved

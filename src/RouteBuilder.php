@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category  Ruta
- * @package   Restty\Ruta
+ * @package   Ruta
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2014 Federico Lozada Mosto <mostofreddy@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
 
-namespace restty\ruta;
+namespace mostofreddy\ruta;
 
 /**
  * RouteBuilder
  *
  * @category  Ruta
- * @package   Restty\Ruta
+ * @package   Ruta
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2014 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
@@ -29,7 +29,7 @@ namespace restty\ruta;
  */
 class RouteBuilder
 {
-    protected static $subdirectory = '';
+    public static $subdirectory = '';
     /**
      * Set subdirectory for all routes
      * 
@@ -44,14 +44,14 @@ class RouteBuilder
     /**
      * Factory class
      *
-     * @return restty\ruta\Route
+     * @return mostofreddy\ruta\Route
      */
     public static function create()
     {
         //cache optimization for new instances
         static $cache = null;
         if (null === $cache) {
-            $cache = new \restty\ruta\Route();
+            $cache = new \mostofreddy\ruta\Route();
         }
         $aux = clone $cache;
         return $aux->subdirectory(static::$subdirectory);
