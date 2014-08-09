@@ -12,13 +12,42 @@
  * @link      http://www.mostofreddy.com.ar
  */
 require_once "../vendor/autoload.php";
-require_once 'ConcreteClass.php';
-require_once 'StaticClass.php';
 
-ini_set('error_reporting', true);
+use mostofreddy\ruta\RouterFactory;
 
-$routeCollection = new \mostofreddy\ruta\RouteCollection();
-$routeCollection->subdirectory('ruta');
+$routerFactory = new RouterFactory();
+$router = $routerFactory->newInstance();
+
+$router->add(
+    'ruta/'
+)->method(['GET']);
+
+$router->add(
+    'ruta/users'
+);
+
+$router->add(
+    'ruta/user/\d+:id?',
+    function ($params) {
+        echo "<pre>".print_r($params, true)."</pre>";
+    }
+)->defaults(['id' => 0, 'name' => 'Fede']);
+
+$router->add(
+    'ruta/:controller/:action/:id?'
+)->method(['POST', 'GET']);
 
 
-var_dump(\mostofreddy\ruta\RouteBuilder::$subdirectory);
+
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER["REQUEST_METHOD"];
+
+$route = $router->match($uri, $_SERVER);
+
+if ($route !== false) {
+    echo "<pre>".print_r($route, true)."</pre>";
+    $callback = $route->getCallback();
+    if ($callback !== null) {
+        $callback($route->getParams());
+    }
+}

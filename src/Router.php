@@ -1,6 +1,6 @@
 <?php
 /**
- * RouteCollection
+ * Router
  *
  * PHP version 5.4
  *
@@ -17,7 +17,7 @@
 namespace mostofreddy\ruta;
 
 /**
- * RouteCollection
+ * Router
  *
  * @category  Ruta
  * @package   Ruta
@@ -26,36 +26,44 @@ namespace mostofreddy\ruta;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class RouteCollection implements \Countable, \IteratorAggregate
+class Router
 {
-    protected $routeFactory = null;
-    protected $routes = [];
-
-    public function count()
-    {
-        return count($this->routes);
-    }
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->routes);
-    }
+    protected $routes = null;
     /**
-     * Set factory route
+     * Set route factory
      * 
-     * @param \mostofreddy\ruta\RouteFactory $factory Route factory
+     * @param \mostofreddy\ruta\RouteCollection $collection route collection
      * 
      * @return void
      */
-    public function routeFactory(\mostofreddy\ruta\RouteFactory $factory)
+    public function routeCollection(RouteCollection $collection)
     {
-        $this->routeFactory = $factory;
+        $this->routes = $collection;
+    }
+    /**
+     * Return routes
+     * 
+     * @return \mostofreddy\ruta\RouteCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
     }
 
-    public function add($path, $callback = null)
+    public function __call($method, $args)
     {
-        $route = $this->routeFactory->newInstance();
-        $route->add($path, $callback);
-        $this->routes[] = $route;
-        return $route;
+        return call_user_func_array(array($this->routes, $method), $args);
+    }
+
+
+    public function match($uri, array $server)
+    {
+        foreach ($this->routes as $route) {
+            $match = $route->match($uri, $server);
+            if ($match) {
+                return $route;
+            }
+        }
+        return false;
     }
 }
