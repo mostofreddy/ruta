@@ -51,6 +51,7 @@ class PatternCheck
     {
         $this->pattern = $pattern;
         \preg_match($this->compile(), $uri, $this->matches);
+        // var_dump($this->compile(), $uri, $pattern);
         return !empty($this->matches);
     }
     /**

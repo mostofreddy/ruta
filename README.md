@@ -8,11 +8,10 @@ Easy router package for any project
 Version
 -------
 
-__2.0.0-alpha__
+__2.0.0__
 
 Features
 --------
-
 
 License
 -------
@@ -25,13 +24,6 @@ Instalación
 ### Requirements
 
 - PHP 5.4.*
-
-### Github
-
-    cd /var/www
-    git clone https://github.com/mostofreddy/ruta.git
-    cd ruta
-    composer install
 
 ### Composer
 
@@ -48,23 +40,7 @@ Roadmap & issues
 Changelog
 ---------
 
-__1.1.0__
-
-* Change namaspace to *\ruta*
-* Add cache-system
-* Add examples
-* Travis-CI integration
-
-__1.0.1__
-
-* Change composer configuration
-
-__1.0.0__
-
-* Se elimina retro-compatibilidad
-* Implementación de PSR-4
-* Se cambia el namaspace *mostofreddy/ruta* a *resty/ruta*
-* Se elimina features para crear subrutas
+See [Changelog.md](https://github.com/mostofreddy/ruta/tree/master/Changelog.md)
 
 Examples
 ========

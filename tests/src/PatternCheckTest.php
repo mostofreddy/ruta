@@ -33,6 +33,22 @@ class PatternCheckTest extends \PHPUnit_Framework_TestCase
 {
     public function testmatch()
     {
-        
+        $stub = $this->getMock('\mostofreddy\ruta\PatternCheck', ['compile']);
+
+        $stub->method('compile')
+             ->will($this->returnValue('~^/ruta/$~'));
+
+        $this->assertTrue($stub->match("/ruta/", "/ruta/"));
+        $this->assertFalse($stub->match('/ruta', "/ruta/"));
+    }
+
+    public function testmatch2()
+    {
+        $stub = $this->getMock('\mostofreddy\ruta\PatternCheck', ['compile']);
+
+        $stub->method('compile')
+             ->will($this->returnValue('~^/ruta/user(?:/(?P<id>\d+))?$~'));
+
+        $this->assertTrue($stub->match("/ruta/user/1", "/ruta/user/\d+:id?"));
     }
 }
