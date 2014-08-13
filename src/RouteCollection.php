@@ -30,11 +30,20 @@ class RouteCollection implements \Countable, \IteratorAggregate
 {
     protected $routeFactory = null;
     protected $routes = [];
-
+    /**
+     * return total routes
+     * 
+     * @return int
+     */
     public function count()
     {
         return count($this->routes);
     }
+    /**
+     * Return iterator
+     * 
+     * @return \ArrayIterator
+     */
     public function getIterator()
     {
         return new \ArrayIterator($this->routes);
@@ -50,7 +59,14 @@ class RouteCollection implements \Countable, \IteratorAggregate
     {
         $this->routeFactory = $factory;
     }
-
+    /**
+     * Add Route
+     * 
+     * @param string   $path     route pattern
+     * @param Callable $callback Callback function
+     *
+     * @return \mostofreddy\ruta\Route
+     */
     public function add($path, $callback = null)
     {
         $route = $this->routeFactory->newInstance();

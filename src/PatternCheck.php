@@ -146,8 +146,6 @@ class PatternCheck
     /**
      * Obtiene todas las variables de la query
      *
-     * @param array $matches variables de la uri
-     *
      * @return void
      */
     protected function cleanMatches()

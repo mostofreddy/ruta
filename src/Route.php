@@ -75,13 +75,23 @@ class Route
         $this->methods = $methods;
         return $this;
     }
-
+    /**
+     * Set default values
+     * 
+     * @param array $defaults defaults
+     * 
+     * @return self
+     */
     public function defaults(array $defaults)
     {
         $this->defaults = $defaults;
         return $this;
     }
-
+    /**
+     * Return all params
+     * 
+     * @return array
+     */
     public function getParams()
     {
         return array_merge(
@@ -122,7 +132,13 @@ class Route
     {
         return ($this->pattern != '');
     }
-
+    /**
+     * Validate http method for route
+     * 
+     * @param array $server Route methods
+     * 
+     * @return boolean
+     */
     protected function isValidHttpMethod(array $server)
     {
         if (empty($this->methods)) {
@@ -133,6 +149,13 @@ class Route
         }
         return false;
     }
+    /**
+     * Match patter
+     * 
+     * @param string $uri uri
+     * 
+     * @return boolean
+     */
     protected function isPatternMartch($uri)
     {
         return $this->patternCheck->match($uri, $this->pattern);

@@ -49,13 +49,27 @@ class Router
     {
         return $this->routes;
     }
-
+    /**
+     * [__call description]
+     * 
+     * @param string $method method invoked
+     * @param array  $args   args
+     * 
+     * @return mixed
+     */
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->routes, $method), $args);
     }
 
-
+    /**
+     * Determines the route invoked
+     * 
+     * @param string $uri    uri
+     * @param array  $server $_SERVER array
+     * 
+     * @return false|\mostofreddy\ruta\Route
+     */
     public function match($uri, array $server)
     {
         foreach ($this->routes as $route) {

@@ -3,6 +3,10 @@ Changelog
 
 __2.0.0__
 
+* Core refactoring
+* New interface
+* Deprecate cache system
+* Implements PSR1, PSR2, PSR4
 
 __1.1.0__
 
