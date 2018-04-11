@@ -1,3 +1,5 @@
+**DEPRECATED**
+
 Ruta
 ====
 
@@ -46,4 +48,3 @@ Examples
 ========
 
 [View examples](https://github.com/mostofreddy/ruta/tree/master/example)
-
